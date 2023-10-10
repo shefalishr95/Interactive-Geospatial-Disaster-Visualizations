@@ -2,15 +2,16 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 
-# Load your dataset
-your_dataset <- read.csv("/Users/roy/Downloads/HmaSubapplicationsProjectSiteInventories.csv")  # Replace with your dataset file path
-
+# Load dataset
+urrfile="https://www.fema.gov/api/open/v1/HmaSubapplicationsProjectSiteInventories.csv"
+your_dataset <- read.csv(urrfile)
+  
 # Define the user interface
 ui <- fluidPage(
-  titlePanel("County Data Distribution"),
+  titlePanel("State Data Distribution"),
   sidebarLayout(
     sidebarPanel(
-      textInput("countyCodeInput", "Enter County Code:", ""),
+      textInput("stateCodeInput", "Enter State Code:", ""),
       actionButton("updateData", "Update Data")
     ),
     mainPanel(
@@ -26,11 +27,11 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   filteredData <- eventReactive(input$updateData, {
-    req(input$countyCodeInput)
-    if (input$countyCodeInput %in% your_dataset$countyCode) {
-      filter(your_dataset, countyCode == input$countyCodeInput)
+    req(input$stateCodeInput)
+    if (input$stateCodeInput %in% your_dataset$stateAbbreviation) {
+      filter(your_dataset, stateAbbreviation == input$stateCodeInput)
     } else {
-      data.frame()  # Empty data frame if countyCode is not found
+      data.frame()  # Empty data frame if state Abbreviation is not found
     }
   })
   
@@ -51,7 +52,7 @@ server <- function(input, output, session) {
       avg_price <- mean(filteredData()$estimatedPurchasePrice)
       paste("Average Estimated Purchase Price:", format(avg_price, big.mark = ",", scientific = FALSE))
     } else {
-      "County Code not found"
+      "State Code not found"
     }
   })
   
@@ -60,7 +61,7 @@ server <- function(input, output, session) {
       avg_ratio <- mean(filteredData()$benefitCostRatio)
       paste("Average Benefit Cost Ratio:", round(avg_ratio, 2))
     } else {
-      "County Code not found"
+      "State Code not found"
     }
   })
   
