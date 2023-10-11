@@ -1,6 +1,6 @@
 # Interactive geospatial visualization of disasters using FEMA dataset on RShiny app
 
-### This project was completed as a part of 'Applied Data Science' course at Columbia University by a team of 4.
+### This project was completed as a part of 'Applied Data Science' course at Columbia University by a team of 5.
 
 Term: Fall 2023
 
