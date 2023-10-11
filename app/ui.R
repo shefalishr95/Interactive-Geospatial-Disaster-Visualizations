@@ -28,7 +28,6 @@ library(stringr)
 library(maps)
 library(sf)
 library(plotly)
-
 library(tidytext)
 library(DT)
 library(scales)
@@ -36,6 +35,7 @@ library(wordcloud2)
 library(gridExtra)
 library(tm)
 library(ngram)
+
 # Define UI for application that draws a histogram
 shinyUI(
   navbarPage(strong("US Disaster Study",style="color: white;"), 

@@ -1,12 +1,3 @@
-#
-# This is the server logic of a Shiny web application. You can run the
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-###############################Install Related Packages #######################
 if (!require("shiny")) {
   install.packages("shiny")
   library(shiny)
@@ -54,11 +45,11 @@ library(tm)
 library(ngram)
 
 
-usgeo = st_read("../data/cb_2018_us_county_20m/cb_2018_us_county_20m.shp") %>%
+usgeo = st_read("./data/cb_2018_us_county_20m/cb_2018_us_county_20m.shp") %>%
   mutate(fips = as.numeric(paste0(STATEFP, COUNTYFP)))
 usgeo_county = sf::st_transform(usgeo, "+proj=longlat +datum=WGS84")
 
-usgeo_state = st_read("../data/cb_2018_us_state_20m/cb_2018_us_state_20m.shp")
+usgeo_state = st_read("./data/cb_2018_us_state_20m/cb_2018_us_state_20m.shp")
 usgeo_state = sf::st_transform(usgeo_state, "+proj=longlat +datum=WGS84")
 
 urlfile = "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries.csv"
