@@ -175,18 +175,18 @@ shinyServer(function(input, output, session) {
   })
   
   ############# TAB 2 ############################
-  filteredData = eventReactive(input$updateData, {
+  filteredData_insurance = eventReactive(input$updateData, {
     req(input$state_select_tab2)
     filter(your_dataset_insurance, propertyState == input$state_select_tab2)
   })
   
   output$premiumComparison = renderPlotly({
-    if (nrow(filteredData()) > 0) {
+    if (nrow(filteredData_insurance()) > 0) {
       avg_values = summarise(
-        filteredData(),
-        Avg_Premium = mean(your_dataset_insurance$totalInsurancePremiumOfThePolicy),
-        Avg_Building_Coverage = mean(your_dataset_insurance$totalBuildingInsuranceCoverage),
-        Avg_Contents_Coverage = mean(your_dataset_insurance$totalContentsInsuranceCoverage)
+        filteredData_insurance(),
+        Avg_Premium = mean(totalInsurancePremiumOfThePolicy),
+        Avg_Building_Coverage = mean(totalBuildingInsuranceCoverage),
+        Avg_Contents_Coverage = mean(totalContentsInsuranceCoverage)
       )
       
       avg_values_long = pivot_longer(avg_values, cols = starts_with("Avg_"), names_to = "Category", values_to = "Average")
@@ -199,8 +199,9 @@ shinyServer(function(input, output, session) {
           y = "Average Value",
           fill = "Category"
         ) +
-        scale_fill_viridis_d("Category")  +
-        theme(legend.position = "none")
+        scale_fill_viridis_d("Category")  
+      # +
+      #   theme(legend.position = "none")
 
       ggplotly(insurance_plot, tooltip = c("Average"))
     }
@@ -272,6 +273,8 @@ shinyServer(function(input, output, session) {
     corpus = tm_map(corpus, removePunctuation)
     corpus = tm_map(corpus, removeNumbers)
     corpus = tm_map(corpus, stripWhitespace)
+    corpus = tm_map(corpus, removeWords, stopwords("english")) 
+      
     
     # Create a term-document matrix
     tdm = TermDocumentMatrix(corpus)

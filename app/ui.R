@@ -116,7 +116,7 @@ shinyUI(
                            width = 2
                          ),
                          mainPanel(
-                           plotlyOutput("premiumComparison"),
+                           plotlyOutput("premiumComparison", height="600px"),
                            # plotOutput("priceDistribution"),
                            # plotOutput("ratioDistribution"),
                            # verbatimTextOutput("averagePrice"),
