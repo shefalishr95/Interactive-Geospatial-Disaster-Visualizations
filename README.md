@@ -9,7 +9,7 @@ Term: Fall 2023
 Link to [Rshiny app](https://dj3tzj-ritika-nandi.shinyapps.io/ADS-Fall2023-Project2-Group9/)
 
 + Team 9
-+ **Interactive geospatial visualization of disasters using FEMA dataset on RShiny app**: + Team members
++ Team members
 	+ Ritika Nandi
 	+ Shefali Shrivastava
 	+ Yuchen Wu
