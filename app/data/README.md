@@ -2,4 +2,6 @@
 
 ### This project was completed as a part of 'Applied Data Science' course at Columbia University by a team of 4.
 
-The doc directory contains figures as well as the contribution statement.  
+This folder contains the key data files for the shiny app:
+- Geospatial data
+- Disaster summary data from FEMA

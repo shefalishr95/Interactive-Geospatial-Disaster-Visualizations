@@ -6,6 +6,8 @@ Term: Fall 2023
 
 ![screenshot](doc/figs/hurricane.png)
 
+Link to [Rshiny app](https://dj3tzj-ritika-nandi.shinyapps.io/ADS-Fall2023-Project2-Group9/)
+
 + Team 9
 + **Interactive geospatial visualization of disasters using FEMA dataset on RShiny app**: + Team members
 	+ Ritika Nandi
@@ -40,11 +42,8 @@ Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by
 
 ```
 proj/
-├── app/
-├── lib/
-├── data/
-├── doc/
-└── output/
+├── app/data
+└── doc/fig
 ```
 
 Please see each subfolder for a README file.
