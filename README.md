@@ -4,15 +4,15 @@
 
 Term: Fall 2023
 
-![screenshot](doc/figs/map.jpg)
+![screenshot](doc/figs/hurricane.png)
 
 + Team 9
 + **Interactive geospatial visualization of disasters using FEMA dataset on RShiny app**: + Team members
 	+ Ritika Nandi
 	+ Shefali Shrivastava
 	+ Yuchen Wu
-	+ Roy
-	+ Harini
+	+ Zhenhui Wang
+	+ Harini Sundararajan
 
 
 Imagine you're on the verge of buying your dream home. You've saved up for a down payment and organized your finances. Now, you're ready to take the plunge. But before deciding on a location, wouldn't you like to know more about the county or state? What's the school quality like? How many public spaces are there? What's the transportation system like? And most importantly, how likely (or rather, unlikely) are natural or artificial disasters in the area?
