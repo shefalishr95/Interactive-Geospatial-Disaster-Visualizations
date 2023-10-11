@@ -45,6 +45,14 @@ library(maps)
 library(sf)
 library(plotly)
 
+library(tidytext)
+library(DT)
+library(scales)
+library(wordcloud2)
+library(gridExtra)
+library(tm)
+library(ngram)
+
 
 usgeo = st_read("../data/cb_2018_us_county_20m/cb_2018_us_county_20m.shp") %>%
   mutate(fips = as.numeric(paste0(STATEFP, COUNTYFP)))
@@ -76,13 +84,14 @@ grouped_disaster_df = disaster_df %>%
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
-
+  ##### TAB 1 #################
   updateDropdown = reactive({
     choices_year = sort(unique(grouped_disaster_df$endYear), decreasing = TRUE)
     updateSelectInput(session, "year_select", choices = choices_year)
     
     choices_state = c("Select State", sort(unique(grouped_disaster_df$state), decreasing = FALSE))
     updateSelectInput(session, "state_select", choices = choices_state)
+    updateSelectInput(session, "state_select_tab3", choices = choices_state)
   })
   
   # Call the updateDropdown reactive expression to update the dropdown choices
@@ -165,6 +174,54 @@ shinyServer(function(input, output, session) {
       ggplotly(gg_chart, tooltip = c("NAME", "incidentType", "y"))
     }
     
+  })
+  
+  ########### TAB 3####################
+  filteredData = reactive({
+    req(input$generateButton)
+    req(input$state_select_tab3)
+    
+    # Filter data based on input location
+    filter(disaster_df, state == input$state_select_tab3)
+  })
+  
+  # Generate word cloud
+  output$wordcloudOutput = renderWordcloud2({
+    if (nrow(filteredData()) == 0) {
+      return(wordcloud(words = character(0), freq = numeric(0)))
+    }
+    
+    # Create a corpus
+    corpus = Corpus(VectorSource(filteredData()$declarationTitle))
+    
+    # Preprocess the text
+    corpus = tm_map(corpus, content_transformer(tolower))
+    corpus = tm_map(corpus, removePunctuation)
+    corpus = tm_map(corpus, removeNumbers)
+    corpus = tm_map(corpus, stripWhitespace)
+    
+    # Create a term-document matrix
+    tdm = TermDocumentMatrix(corpus)
+    
+    # Convert term-document matrix to a matrix
+    m = as.matrix(tdm)
+    
+    # Calculate word frequencies
+    word_freqs = sort(rowSums(m), decreasing = TRUE)
+    
+    # Create a data frame for wordcloud2
+    wordcloud_data = data.frame(word = names(word_freqs), freq = word_freqs)
+    
+    wordcloud2(wordcloud_data)
+  })
+  
+  # Display information about the data
+  output$infoText = renderText({
+    if (nrow(filteredData()) == 0) {
+      return("No data found for the specified location.")
+    }
+    
+    paste("Showing data for", input$state_select_tab3)
   })
   
 })
