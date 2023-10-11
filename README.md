@@ -42,8 +42,12 @@ Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by
 
 ```
 proj/
-├── app/data
-└── doc/fig
+├── app
+      ├── data
+      ├── reconnect
+      └── www
+└── doc
+      └── figs
 ```
 
 Please see each subfolder for a README file.
