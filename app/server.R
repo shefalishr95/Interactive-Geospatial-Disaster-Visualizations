@@ -52,6 +52,12 @@ usgeo_county = sf::st_transform(usgeo, "+proj=longlat +datum=WGS84")
 usgeo_state = st_read("./data/cb_2018_us_state_20m/cb_2018_us_state_20m.shp")
 usgeo_state = sf::st_transform(usgeo_state, "+proj=longlat +datum=WGS84")
 
+urlfile_claims = "./data/FimaNfipClaims.csv"
+your_dataset_insurance = read.csv(urlfile_claims)
+
+url_file_inventories="https://www.fema.gov/api/open/v1/HmaSubapplicationsProjectSiteInventories.csv"
+your_dataset_inventories = read.csv(url_file_inventories)
+
 urlfile = "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries.csv"
 disaster_df = read.csv(urlfile)
 
@@ -82,6 +88,7 @@ shinyServer(function(input, output, session) {
     
     choices_state = c("Select State", sort(unique(grouped_disaster_df$state), decreasing = FALSE))
     updateSelectInput(session, "state_select", choices = choices_state)
+    updateSelectInput(session, "state_select_tab2", choices = choices_state)
     updateSelectInput(session, "state_select_tab3", choices = choices_state)
   })
   
@@ -166,6 +173,81 @@ shinyServer(function(input, output, session) {
     }
     
   })
+  
+  ############# TAB 2 ############################
+  filteredData = eventReactive(input$updateData, {
+    req(input$state_select_tab2)
+    filter(your_dataset_insurance, propertyState == input$state_select_tab2)
+  })
+  
+  output$premiumComparison = renderPlotly({
+    if (nrow(filteredData()) > 0) {
+      avg_values = summarise(
+        filteredData(),
+        Avg_Premium = mean(your_dataset_insurance$totalInsurancePremiumOfThePolicy),
+        Avg_Building_Coverage = mean(your_dataset_insurance$totalBuildingInsuranceCoverage),
+        Avg_Contents_Coverage = mean(your_dataset_insurance$totalContentsInsuranceCoverage)
+      )
+      
+      avg_values_long = pivot_longer(avg_values, cols = starts_with("Avg_"), names_to = "Category", values_to = "Average")
+      
+      insurance_plot = ggplot(avg_values_long, aes(x = Category, y = Average, fill = Category)) +
+        geom_bar(stat = "identity") +
+        labs(
+          title = "Average Insurance Premiums and Coverages",
+          x = "Category",
+          y = "Average Value",
+          fill = "Category"
+        ) +
+        scale_fill_viridis_d("Category")  +
+        theme(legend.position = "none")
+
+      ggplotly(insurance_plot, tooltip = c("Average"))
+    }
+    else {
+      plot(NULL, xlim = c(0, 1), ylim = c(0, 1), xlab = "", ylab = "")  # Empty plot if propertyState is not found
+    }
+  })
+  # 
+  # filteredData = eventReactive(input$updateData, {
+  #   req(input$state_select_tab2)
+  #   if (input$state_select_tab2 %in% your_dataset_inventories$stateAbbreviation) {
+  #     filter(your_dataset_inventories, stateAbbreviation == input$state_select_tab2)
+  #   } else {
+  #     data.frame()  # Empty data frame if state Abbreviation is not found
+  #   }
+  # })
+  # 
+  # output$priceDistribution = renderPlot({
+  #   ggplot(filteredData(), aes(x = estimatedPurchasePrice)) +
+  #     geom_histogram(binwidth = 5000, fill = "blue", color = "black") +
+  #     labs(title = "Estimated Purchase Price Distribution")
+  # })
+  # 
+  # output$ratioDistribution = renderPlot({
+  #   ggplot(filteredData(), aes(x = benefitCostRatio)) +
+  #     geom_histogram(binwidth = 0.1, fill = "green", color = "black") +
+  #     labs(title = "Benefit Cost Ratio Distribution")
+  # })
+  # 
+  # output$averagePrice = renderText({
+  #   if (nrow(filteredData()) > 0) {
+  #     avg_price = mean(filteredData()$estimatedPurchasePrice)
+  #     paste("Average Estimated Purchase Price:", format(avg_price, big.mark = ",", scientific = FALSE))
+  #   } else {
+  #     "State Code not found"
+  #   }
+  # })
+  # 
+  # output$averageRatio = renderText({
+  #   if (nrow(filteredData()) > 0) {
+  #     avg_ratio = mean(filteredData()$benefitCostRatio)
+  #     paste("Average Benefit Cost Ratio:", round(avg_ratio, 2))
+  #   } else {
+  #     "State Code not found"
+  #   }
+  # })
+  
   
   ########### TAB 3####################
   filteredData = reactive({

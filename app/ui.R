@@ -99,7 +99,31 @@ shinyUI(
                       
             ), #tabPanel maps closing
             tabPanel("Economic Effects",
-                     icon = icon("coins")
+                     icon = icon("coins"),
+                     fluidRow (
+                       h4(style =  "margin:20px","Say you do face an unfortunate disaster (we do hope that you don’t!). The next question that follows is: how much would this cost me? While it is difficult to collect primary information on financial repercussions, we can use disaster insurance claims as an alternate to estimate the cost of damages incurred."),
+
+                       
+                       h4(style =  "margin:20px","In this section, you can check the average cost of disasters. Also, you could check that how government and insurance help you to mitigate the cost of the disasters.")
+                     ),
+                     
+                       sidebarLayout(
+                         sidebarPanel (
+                           selectInput(inputId = "state_select_tab2",
+                                       label = "Select a State:",
+                                       choices = NULL),
+                           actionButton("updateData", "Update Data"),
+                           width = 2
+                         ),
+                         mainPanel(
+                           plotlyOutput("premiumComparison"),
+                           # plotOutput("priceDistribution"),
+                           # plotOutput("ratioDistribution"),
+                           # verbatimTextOutput("averagePrice"),
+                           # verbatimTextOutput("averageRatio")
+                         )
+                       ),
+                     
             ),
             tabPanel("Disaster Word Cloud",
                      icon = icon("cloud"),
