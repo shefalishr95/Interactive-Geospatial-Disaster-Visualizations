@@ -1,54 +1,61 @@
-# Interactive geospatial visualization of disasters using FEMA dataset on RShiny app
+# Interactive Geospatial Visualization of Disasters Using FEMA Dataset on R Shiny
 
-### This project was completed as a part of 'Applied Data Science' course at Columbia University by a team of 5.
+## Project Overview
 
-Term: Fall 2023
+This R Shiny application provides an interactive geospatial visualization of disasters using data from the Federal Emergency Management Agency (FEMA). The project was developed at Columbia University by a team of 6 members.
 
-![screenshot](doc/figs/hurricane.png)
+![Application Screenshot](doc/figs/hurricane.png)
 
-Link to [Rshiny app](https://dj3tzj-ritika-nandi.shinyapps.io/ADS-Fall2023-Project2-Group9/)
+[Access the R Shiny Application](https://dj3tzj-ritika-nandi.shinyapps.io/ADS-Fall2023-Project2-Group9/)
 
-+ Team 9
-+ Team members
-	+ Ritika Nandi
-	+ Shefali Shrivastava
-	+ Yuchen Wu
-	+ Zhenhui Wang
-	+ Harini Sundararajan
+## Development Team (Group 9)
 
+- Ritika Nandi
+- Shefali Shrivastava
+- Yuchen Wu
+- Zhenhui Wang
+- Harini Sundararajan
 
-Imagine you're on the verge of buying your dream home. You've saved up for a down payment and organized your finances. Now, you're ready to take the plunge. But before deciding on a location, wouldn't you like to know more about the county or state? What's the school quality like? How many public spaces are there? What's the transportation system like? And most importantly, how likely (or rather, unlikely) are natural or artificial disasters in the area?
+## Application Features
 
-We've developed an app to help you answer this crucial question. The app utilizes open datasets from the Federal Emergency Management Agency to provide historical data on number of disasters in your state, along with the average economic costs associated with those disasters. The main components of app are as follows:
-1. County-wise disaster map.
-2. Economic costs associated with disasters.
-3. Word cloud of common disasters.
+The application leverages open datasets from FEMA to provide historical data on disaster occurrences and associated economic impacts. Key components include:
 
-#### County-wise disaster map
-This section uses open FEMA dataset to display the count of disasters by state, county, and year on the map of the United States. To see the count in your area, just select your state and county, and the year of interest. The map will automatically readjust to show you the number of disasters in the selected year in that area. Depending on the internet bandwidth and local memory, this map might take anywhere from 1 to 6 minutes to load – so please be patient!
-As you scroll down, you'll encounter an alternate visualization—an informative bar plot. For all those who prefer seeing the numbers on a chart, we’ve created a bar plot illustrating the count of disasters in the selected year, county and state (meaning, you don’t need to re-select your specifications). Additionally, the bar plot also shows the number of disasters by category (such as ‘Fire’, ‘Flood’ etc.)
+1. County-level Disaster Map
+2. Economic Impact Analysis
+3. Disaster Frequency Visualization
 
-#### Economic costs associated with disasters
-Say you do face an unfortunate disaster (we do hope that you don’t!). The next question that follows is: how much would this cost me? While it is difficult to collect primary information on financial repercussions, we can use disaster insurance claims as an alternate to estimate the cost of damages incurred.
-In this section, you can check the average cost of disasters, as well as the estimated support from FEMA to mitigate cost of disasters (based on historical data). 
+### 1. County-level Disaster Map
 
-#### Word cloud of disasters
-In the last section, we have an interesting visualization for those who prefer words over numbers and figures. The Word Cloud presented below displays the most frequent disasters in your state, for the selected year, using scale as a dimension. That means, the most commonly occurring disaster in your area is the biggest word, and second most common disaster is the second biggest word, and so forth. This visualization provides a succinct representation of the most commonly encountered disasters in your locality.
+This module utilizes FEMA data to display disaster counts by state, county, and year across the United States. Users can select specific geographic and temporal parameters to view disaster frequencies. The map rendering may take 1-6 minutes depending on network and system resources.
 
+A supplementary bar plot visualization is provided, illustrating disaster counts for the selected parameters, including a breakdown by disaster category.
 
-+ **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement. 
+### 2. Economic Impact Analysis
 
-Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
+This section estimates the financial implications of disasters using historical insurance claim data. It provides:
+- Average cost of disasters
+- Estimated FEMA support for disaster mitigation
+
+### 3. Disaster Frequency Visualization
+
+A word cloud visualization represents the most frequent disasters in the selected state and year. The size of each word corresponds to the relative frequency of the disaster type, offering a quick visual summary of common disaster occurrences.
+
+## Project Structure
+
+The repository is organized as follows:
 
 ```
 proj/
-├── app
-      ├── data
-      ├── reconnect
-      └── www
-└── doc
-      └── figs
+├── app/
+│   ├── data/
+│   ├── reconnect/
+│   └── www/
+└── doc/
+    └── figs/
 ```
 
-Please see each subfolder for a README file.
+Please refer to the README files in each subdirectory for detailed information.
 
+## Contributions
+
+All team members contributed equally to all stages of this project. The team unanimously approves the work presented in this GitHub repository, including this contribution statement.
