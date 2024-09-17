@@ -2,23 +2,15 @@
 
 ## Project Overview
 
-This R Shiny application provides an interactive geospatial visualization of disasters using data from the Federal Emergency Management Agency (FEMA). The project was developed at Columbia University by a team of 6 members.
+This R Shiny application provides an interactive geospatial visualization of disasters using data from the Federal Emergency Management Agency (FEMA). The project was developed as a team effort at Columbia University in Fall 2023.
 
 ![Application Screenshot](doc/figs/hurricane.png)
 
 [Access the R Shiny Application](https://dj3tzj-ritika-nandi.shinyapps.io/ADS-Fall2023-Project2-Group9/)
 
-## Development Team (Group 9)
-
-- Ritika Nandi
-- Shefali Shrivastava
-- Yuchen Wu
-- Zhenhui Wang
-- Harini Sundararajan
-
 ## Application Features
 
-The application leverages open datasets from FEMA to provide historical data on disaster occurrences and associated economic impacts. Key components include:
+The application leverages open datasets from FEMA, encompassing approximately 465,000 records, to provide historical data on disaster occurrences and associated economic impacts. Key components include:
 
 1. County-level Disaster Map
 2. Economic Impact Analysis
@@ -33,6 +25,7 @@ A supplementary bar plot visualization is provided, illustrating disaster counts
 ### 2. Economic Impact Analysis
 
 This section estimates the financial implications of disasters using historical insurance claim data. It provides:
+
 - Average cost of disasters
 - Estimated FEMA support for disaster mitigation
 
@@ -58,4 +51,4 @@ Please refer to the README files in each subdirectory for detailed information.
 
 ## Contributions
 
-All team members contributed equally to all stages of this project. The team unanimously approves the work presented in this GitHub repository, including this contribution statement.
+This project was completed by a team of 5 members. All team members contributed equally to all stages of this project. The team unanimously approves the work presented in this GitHub repository, including this contribution statement.
